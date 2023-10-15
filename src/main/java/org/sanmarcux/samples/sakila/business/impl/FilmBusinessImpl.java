@@ -2,10 +2,12 @@ package org.sanmarcux.samples.sakila.business.impl;
 
 import org.modelmapper.ModelMapper;
 import org.sanmarcux.samples.sakila.business.FilmBusiness;
+import org.sanmarcux.samples.sakila.dao.CustomFilmRepository;
 import org.sanmarcux.samples.sakila.dao.FilmRepository;
 import org.sanmarcux.samples.sakila.dao.LanguageRepository;
 import org.sanmarcux.samples.sakila.dao.model.Film;
 import org.sanmarcux.samples.sakila.dao.model.Language;
+import org.sanmarcux.samples.sakila.dto.FilmActorDTO;
 import org.sanmarcux.samples.sakila.dto.FilmDTO;
 import org.sanmarcux.samples.sakila.exceptions.FilmNotFoundException;
 import org.sanmarcux.samples.sakila.exceptions.LanguageNotFoundException;
@@ -28,16 +30,20 @@ import java.util.stream.Collectors;
 public class FilmBusinessImpl implements FilmBusiness {
 
     private final FilmRepository filmRepository;
+
+    private final CustomFilmRepository customFilmRepository;
     private final LanguageRepository languageRepository;
 
     private final ModelMapper modelMapper;
 
     @Autowired
     private FilmBusinessImpl(FilmRepository filmRepository,
+                             CustomFilmRepository customFilmRepository,
                              LanguageRepository languageRepository,
                              ModelMapper modelMapper) {
         this.filmRepository = filmRepository;
         this.languageRepository = languageRepository;
+        this.customFilmRepository = customFilmRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -80,5 +86,10 @@ public class FilmBusinessImpl implements FilmBusiness {
         return filmRepository.findById(filmId)
                 .map(film -> modelMapper.map(film, FilmDTO.class))
                 .orElseThrow(() -> new FilmNotFoundException(filmId));
+    }
+
+    @Override
+    public List<FilmActorDTO> getFilmWithActors(short filmId) {
+        return customFilmRepository.getFilmWithActors(filmId);
     }
 }

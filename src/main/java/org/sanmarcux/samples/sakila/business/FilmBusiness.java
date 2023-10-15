@@ -1,5 +1,6 @@
 package org.sanmarcux.samples.sakila.business;
 
+import org.sanmarcux.samples.sakila.dto.FilmActorDTO;
 import org.sanmarcux.samples.sakila.dto.FilmDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,4 +21,7 @@ public interface FilmBusiness {
     List<FilmDTO> findFilmsByActor(Short actorId);
 
     FilmDTO get(Short filmId);
+
+    List<FilmActorDTO> getFilmWithActors(short filmId);
+
 }

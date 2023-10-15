@@ -1,6 +1,7 @@
 package org.sanmarcux.samples.sakila.controller;
 
 import org.sanmarcux.samples.sakila.business.FilmBusiness;
+import org.sanmarcux.samples.sakila.dto.FilmActorDTO;
 import org.sanmarcux.samples.sakila.dto.FilmDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 /**
  * Created on 29/04/2018.
@@ -60,5 +62,11 @@ public class FilmRestController {
     public FilmDTO getFilm(@PathVariable Short filmId) {
         LOG.info("Invoking Rest Service getFilm");
         return filmBusiness.get(filmId);
+    }
+
+    @GetMapping("/getFilmWithActors/{filmId}")
+    public List<FilmActorDTO> getFilmWithActors(@PathVariable Short filmId) {
+        LOG.info("Invoking Rest Service getFilm");
+        return filmBusiness.getFilmWithActors(filmId);
     }
 }
