@@ -22,6 +22,6 @@ public interface FilmBusiness {
 
     FilmDTO get(Short filmId);
 
-    List<FilmActorDTO> getFilmWithActors(short filmId);
+    FilmActorDTO getFilmWithActors(short filmId);
 
 }

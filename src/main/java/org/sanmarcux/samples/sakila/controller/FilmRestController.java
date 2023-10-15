@@ -65,7 +65,7 @@ public class FilmRestController {
     }
 
     @GetMapping("/getFilmWithActors/{filmId}")
-    public List<FilmActorDTO> getFilmWithActors(@PathVariable Short filmId) {
+    public FilmActorDTO getFilmWithActors(@PathVariable Short filmId) {
         LOG.info("Invoking Rest Service getFilm");
         return filmBusiness.getFilmWithActors(filmId);
     }

@@ -89,7 +89,7 @@ public class FilmBusinessImpl implements FilmBusiness {
     }
 
     @Override
-    public List<FilmActorDTO> getFilmWithActors(short filmId) {
+    public FilmActorDTO getFilmWithActors(short filmId) {
         return customFilmRepository.getFilmWithActors(filmId);
     }
 }

@@ -22,13 +22,13 @@ public class CustomFilmRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<FilmActorDTO> getFilmWithActors(short filmId) {
+    public FilmActorDTO getFilmWithActors(short filmId) {
         SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withProcedureName("get_film_with_actors")
                 .returningResultSet("p_cursor", new RowMapper<FilmActorDTO>() {
+                    final FilmActorDTO dto = new FilmActorDTO();
                     @Override
                     public FilmActorDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        FilmActorDTO dto = new FilmActorDTO();
                         dto.setFilmId(rs.getLong("film_id"));
                         dto.setFilmTitle(rs.getString("film_title"));
                         dto.setFilmDescription(rs.getString("film_description"));
@@ -52,6 +52,7 @@ public class CustomFilmRepository {
                 .addValue("p_film_id", filmId);
 
         Map<String, Object> result = jdbcCall.execute(in);
-        return (List<FilmActorDTO>) result.get("p_cursor");
+        List<FilmActorDTO> list = (List<FilmActorDTO>) result.get("p_cursor");
+        return list.get(0);
     }
 }
