@@ -1,5 +1,6 @@
 package org.sanmarcux.samples.sakila.dao;
 
+import org.sanmarcux.samples.sakila.dto.ActorDTO;
 import org.sanmarcux.samples.sakila.dto.FilmActorDTO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,9 +32,18 @@ public class CustomFilmRepository {
                         dto.setFilmId(rs.getLong("film_id"));
                         dto.setFilmTitle(rs.getString("film_title"));
                         dto.setFilmDescription(rs.getString("film_description"));
-                        dto.setActorId(rs.getLong("actor_id"));
-                        dto.setActorFirstName(rs.getString("actor_first_name"));
-                        dto.setActorLastName(rs.getString("actor_last_name"));
+                        List<ActorDTO> actors = dto.getActors();
+                        if (actors == null) {
+                            actors = new ArrayList<>();
+                        }
+
+                        ActorDTO actorDTO = new ActorDTO();
+                        actorDTO.setActorId(rs.getShort("actor_id"));
+                        actorDTO.setFirstName(rs.getString("actor_first_name"));
+                        actorDTO.setLastName(rs.getString("actor_last_name"));
+                        actors.add(actorDTO);
+
+                        dto.setActors(actors);
                         return dto;
                     }
                 });

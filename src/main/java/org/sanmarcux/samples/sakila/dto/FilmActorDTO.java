@@ -1,12 +1,13 @@
 package org.sanmarcux.samples.sakila.dto;
 
+import java.util.List;
+
 public class FilmActorDTO {
     private Long filmId;
     private String filmTitle;
     private String filmDescription;
-    private Long actorId;
-    private String actorFirstName;
-    private String actorLastName;
+
+    private List<ActorDTO> actors;
 
     public Long getFilmId() {
         return filmId;
@@ -32,27 +33,11 @@ public class FilmActorDTO {
         this.filmDescription = filmDescription;
     }
 
-    public Long getActorId() {
-        return actorId;
+    public List<ActorDTO> getActors() {
+        return actors;
     }
 
-    public void setActorId(Long actorId) {
-        this.actorId = actorId;
-    }
-
-    public String getActorFirstName() {
-        return actorFirstName;
-    }
-
-    public void setActorFirstName(String actorFirstName) {
-        this.actorFirstName = actorFirstName;
-    }
-
-    public String getActorLastName() {
-        return actorLastName;
-    }
-
-    public void setActorLastName(String actorLastName) {
-        this.actorLastName = actorLastName;
+    public void setActors(List<ActorDTO> actors) {
+        this.actors = actors;
     }
 }
